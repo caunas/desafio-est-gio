@@ -1,61 +1,33 @@
-# Desafio Técnico — Banco 🏦
+# Minha Solução — Banco
 
-Bem-vindo(a) ao desafio técnico do **Processo Seletivo Agilize — Estágio em Tecnologia**!
+> Substitua o conteúdo entre colchetes pelas informações da sua solução.
+> Estas informações (aqui ou no README do seu fork) são **obrigatórias**.
 
-Este desafio avalia sua capacidade de transformar **regras de negócio** em um sistema **fullstack**
-funcional, bem organizado e fácil de executar.
+## Stack
+- **Backend:** [linguagem e versão — ex.: Node.js 20 / Python 3.11 / Go 1.22] (deve estar no pool aceito)
+- **Frontend:** [ex.: HTML/CSS/JS puro / React / Vue]
 
-> 📄 **A especificação completa está no arquivo [`ESPECIFICACAO.pdf`](./ESPECIFICACAO.pdf).** Leia-a com atenção antes de começar.
->
-> ⏰ **Prazo:** 2 dias corridos — entrega até **00h de 30/06**.
+## Pré-requisitos / dependências
+- [o que precisa estar instalado e como instalar — ex.: `npm install`, `pip install -r requirements.txt`]
 
----
+## Como executar
 
-## 🎯 Resumo
+### Backend (API)
+```bash
+# [comando(s) para subir o backend]
+# ex.: npm run start  →  API em http://localhost:3000
+```
 
-Construa um **Banco** sobre dois tipos de conta (corrente e poupança), respeitando as regras de negócio
-da especificação. A operação **obrigatória** é o **saque**; a **transferência** é **opcional** e conta
-como diferencial.
+### Frontend
+```bash
+# [comando(s) para subir o frontend]
+# ex.: abrir index.html  /  npm run dev  →  http://localhost:5173
+```
 
-A solução deve ter **duas partes que se comunicam**:
+## Exemplo de uso
+```
+[descreva um fluxo: ex. fazer um saque na tela e o resultado retornado pela API]
+```
 
-- **Backend (API):** expõe uma API HTTP com as operações (toda a regra de negócio fica aqui).
-- **Frontend:** uma interface web que consome a API e permite realizar as operações e ver os resultados.
-
-## 💻 Linguagens aceitas (backend)
-
-`JavaScript (Node.js)` · `TypeScript (Node.js)` · `Python` · `Ruby` · `PHP` · `Go`
-
-> O **frontend** pode usar HTML/CSS/JavaScript, com ou sem framework.
-
----
-
-## 🚀 Como participar
-
-1. Faça um **fork** deste repositório.
-2. Implemente **backend** e **frontend** no fork (backend em uma das linguagens aceitas).
-3. **Preencha o README** do seu fork seguindo o modelo em [`SUBMISSION.md`](./SUBMISSION.md)
-   (linguagem, pré-requisitos e **passo a passo para subir backend e frontend**).
-4. Faça **commits ao longo do desenvolvimento** — evite um único commit gigante no final.
-5. Envie o **link do seu fork** para **calison@agilize.com.br**.
-
----
-
-## ⚠️ Critério eliminatório
-
-> Projetos que **não executarem** seguindo o README — ou cujo README não permita rodar **backend e
-> frontend** — serão **eliminados**. Backend fora das linguagens aceitas também elimina.
->
-> **Teste o passo a passo em uma máquina/pasta limpa antes de enviar.**
-
----
-
-## ✅ O que será avaliado
-
-- **Funcionamento** — backend e frontend rodam, se comunicam e cumprem as regras de negócio.
-- **Qualidade do código** — clareza, organização, separação de responsabilidades, sem duplicação.
-- **Processo** — histórico de commits coerente e README claro.
-
-Dúvidas: **calison@agilize.com.br**
-
-Boa sorte! 🍀
+## Observações (opcional)
+- [decisões de modelagem, itens de bônus implementados, limitações conhecidas, etc.]
