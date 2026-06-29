@@ -35,3 +35,6 @@ class AccountService:
         )
 
         return self.repository.save(account)
+
+    def get_all_accounts(self):
+        return self.repository.getAllAccounts()

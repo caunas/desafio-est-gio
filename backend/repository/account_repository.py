@@ -1,10 +1,19 @@
-from models.account import Account
+from sqlalchemy import select
+
+from models import Account, CheckingAccount, SavingsAccount
+
 
 
 class AccountRepository:
     # Recebe a sessão do database no construtor
     def __init__(self, db):
         self.db = db
+
+    def getAllAccounts(self):
+        checking = self.db.scalars(select(CheckingAccount)).all()
+        savings = self.db.scalars(select(SavingsAccount)).all()
+
+        return checking + savings
     
     def getById(self, account_id, int):
         return self.db.get(Account, account_id)

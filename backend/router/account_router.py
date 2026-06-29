@@ -46,3 +46,12 @@ def create_saving_account(
         holder_name = data.holder_name,
         initial_balance = data.initial_balance
     )
+
+@router.get("/accounts/all",
+response_model = list[AccountResponse],
+status_code = 200)
+def get_all_accounts(
+    db = Depends(get_db),
+    service: AccountService = Depends(get_account_service)
+):
+    return service.get_all_accounts()
