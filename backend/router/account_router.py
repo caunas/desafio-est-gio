@@ -33,3 +33,16 @@ def create_checking_account(
         holder_name=data.holder_name,
         initial_balance=data.initial_balance,
     )
+
+@router.post("/saving",
+response_model = AccountResponse,
+status_code = 201)
+def create_saving_account(
+    data: SavingsAccountCreate,
+    db = Depends(get_db),
+    service: AccountService = Depends(get_account_service)
+):
+    return service.create_savings_account(
+        holder_name = data.holder_name,
+        initial_balance = data.initial_balance
+    )
