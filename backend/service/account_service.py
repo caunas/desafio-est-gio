@@ -34,4 +34,4 @@ class AccountService:
             balance = initial_balance
         )
 
-        return self.repository.create(account)
+        return self.repository.save(account)
