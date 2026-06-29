@@ -24,10 +24,11 @@ class SavingsAccountCreate(SavingsAccountBase):
 
 # Resposta universal de conta
 class AccountResponse(BaseModel):
+    account_type: str
     id: int
     holder_name: str
     balance: Decimal
-    account_type: str
+
 
     model_config = {
         "from_attributes": True

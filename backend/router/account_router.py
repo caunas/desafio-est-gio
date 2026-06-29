@@ -47,7 +47,7 @@ def create_saving_account(
         initial_balance = data.initial_balance
     )
 
-@router.get("/accounts/all",
+@router.get("/all",
 response_model = list[AccountResponse],
 status_code = 200)
 def get_all_accounts(
@@ -55,3 +55,13 @@ def get_all_accounts(
     service: AccountService = Depends(get_account_service)
 ):
     return service.get_all_accounts()
+
+@router.delete("/accounts/{id}",
+response_model = AccountResponse,
+status_code = 200)
+def delete_account(
+    db = Depends(get_db),
+    service: AccountService = Depends(get_account_service),
+    id_victim = id
+):
+    return service.delete_account(id_victim=id_victim)

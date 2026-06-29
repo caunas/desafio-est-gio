@@ -16,7 +16,12 @@ class AccountRepository:
         return checking + savings
     
     def getById(self, account_id: int):
-        return self.db.get(Account, account_id)
+        account = self.db.get(CheckingAccount, account_id)
+
+        if account is None:
+            account = self.db.get(SavingsAccount, account_id)
+
+        return account
 
     def save(self, account: Account):
         self.db.add(account)
@@ -30,5 +35,5 @@ class AccountRepository:
         return account
 
     def delete(self, account: Account):
-        db.delete(account)
-        db.commit()
+        self.db.delete(account)
+        self.db.commit()

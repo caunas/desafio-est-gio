@@ -1,6 +1,7 @@
 from repository.account_repository import AccountRepository
 
 from decimal import Decimal
+from fastapi import HTTPException 
 
 from models.checking import CheckingAccount
 from models.savings import SavingsAccount
@@ -38,3 +39,14 @@ class AccountService:
 
     def get_all_accounts(self):
         return self.repository.getAllAccounts()
+
+    def delete_account(
+        self,
+        id_victim: int):
+        victim = self.repository.getById(id_victim)
+
+        if victim is None:
+            raise HTTPException(status_code = 404, detail="Conta não encontrada.")
+        
+        self.repository.delete(victim)
+        return victim
