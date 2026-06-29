@@ -15,7 +15,7 @@ class AccountRepository:
 
         return checking + savings
     
-    def getById(self, account_id, int):
+    def getById(self, account_id: int):
         return self.db.get(Account, account_id)
 
     def save(self, account: Account):
