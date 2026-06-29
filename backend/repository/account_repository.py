@@ -29,6 +29,6 @@ class AccountRepository:
         self.db.refresh()
         return account
 
-    def delete(self):
+    def delete(self, account: Account):
         db.delete(account)
         db.commit()
