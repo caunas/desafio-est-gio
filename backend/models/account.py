@@ -12,6 +12,8 @@ class Account(Base):
 
     id: Mapped[int] = mapped_column(primary_key = True, index = True)
 
+    holder_name: Mapped[str] = mapped_column(nullable = False)
+
     balance: Mapped[Decimal] = mapped_column(
         Numeric(precision = 15, scale = 2),
         default=Decimal("0.00")
