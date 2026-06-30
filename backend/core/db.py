@@ -20,7 +20,7 @@ SessionLocal = sessionmaker(
 class Base(DeclarativeBase):
     pass
 
-from models import Account, CheckingAccount, SavingsAccount
+from models import Account, CheckingAccount, SavingsAccount, Deposit, Operation, Transfer, Withdraw
 
 def create_db():
     Base.metadata.create_all(bind=engine)

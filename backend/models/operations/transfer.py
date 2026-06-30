@@ -4,9 +4,9 @@ from sqlalchemy import ForeignKey
 from .operation import Operation
 
 
-# Classe de saque
-class Withdraw(Operation):
-    __tablename__ = "withdraws"
+# Classe de transferência
+class Transfer(Operation):
+    __tablename__ = "transfers"
 
     id: Mapped[int] = mapped_column(
         ForeignKey("operations.id"),
@@ -24,5 +24,5 @@ class Withdraw(Operation):
     )
 
     __mapper_args__ = {
-        "polymorphic_identity": "withdraw"
+        "polymorphic_identity": "transfer"
     }

@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy import Numeric, Enum
+from sqlalchemy import Numeric, Enum as SAEnum, String
 
 from decimal import Decimal
 
@@ -11,19 +11,20 @@ from .enums import OperationType
 class Operation(Base):
     __tablename__ = "operations"
 
-    __mapper_args__ = {
-        "polymorphic_on": type
-    }
+    id: Mapped[int] = mapped_column(primary_key=True, index=True)
 
-    id: Mapped[int] = mapped_column(primary_key = True, index = True)
-
-    opType: Mapped[OperationType] = mapped_column(
-        Enum(OperationType),
-        nullabe=False
+    operation_type: Mapped[OperationType] = mapped_column(
+        SAEnum(OperationType),
+        nullable=False
     )
 
-    ammount: Mapped[Decimal] = mapped_column(
-        Numeric(precision = 15, scale = 2),
+    amount: Mapped[Decimal] = mapped_column(
+        Numeric(precision=15, scale=2),
         default=Decimal("0.00"),
         nullable=False
     )
+
+    __mapper_args__ = {
+        "polymorphic_on": operation_type,
+        "polymorphic_identity": "operation"
+    }
