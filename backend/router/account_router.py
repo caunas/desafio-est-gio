@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 
-from models.checking import CheckingAccount
-from models.savings import SavingsAccount
+from models import CheckingAccount
+from models import SavingsAccount
 from service.account_service import *
 from schemas.account_schema import CheckingAccountCreate, SavingsAccountCreate, AccountResponse
 from repository.account_repository import AccountRepository

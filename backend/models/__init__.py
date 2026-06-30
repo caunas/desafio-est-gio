@@ -1,6 +1,6 @@
-from .account import Account
-from .checking import CheckingAccount
-from .savings import SavingsAccount
+from .accounts.account import Account
+from .accounts.checking import CheckingAccount
+from .accounts.savings import SavingsAccount
 
 __all__ = [
     "Account",

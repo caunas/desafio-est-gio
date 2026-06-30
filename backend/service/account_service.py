@@ -3,8 +3,8 @@ from repository.account_repository import AccountRepository
 from decimal import Decimal
 from fastapi import HTTPException 
 
-from models.checking import CheckingAccount
-from models.savings import SavingsAccount
+from models import CheckingAccount
+from models import SavingsAccount
 
 class AccountService:
     

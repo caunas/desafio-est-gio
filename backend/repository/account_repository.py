@@ -10,18 +10,10 @@ class AccountRepository:
         self.db = db
 
     def getAllAccounts(self):
-        checking = self.db.scalars(select(CheckingAccount)).all()
-        savings = self.db.scalars(select(SavingsAccount)).all()
-
-        return checking + savings
+        return self.db.scalars(select(Account)).all()
     
     def getById(self, account_id: int):
-        account = self.db.get(CheckingAccount, account_id)
-
-        if account is None:
-            account = self.db.get(SavingsAccount, account_id)
-
-        return account
+        return self.db.get(Account, account_id)
 
     def save(self, account: Account):
         self.db.add(account)
