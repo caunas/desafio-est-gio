@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 
 from core.db import create_db
 from router.account_router import router as account_router
+from router.operation_router import router as operation_router
 
 
 @asynccontextmanager
@@ -21,5 +22,10 @@ def ping():
 
 app.include_router(
     account_router,
+    prefix="/api"
+)
+
+app.include_router(
+    operation_router,
     prefix="/api"
 )

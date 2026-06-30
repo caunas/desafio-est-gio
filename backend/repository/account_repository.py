@@ -3,10 +3,9 @@ from sqlalchemy import select
 from models import Account, CheckingAccount, SavingsAccount
 
 
-
 class AccountRepository:
-    # Recebe a sessão do database no construtor
     def __init__(self, db):
+        print("REPO INIT DB TYPE:", type(db))
         self.db = db
 
     def getAllAccounts(self):
@@ -21,9 +20,10 @@ class AccountRepository:
         self.db.refresh(account)
         return account
 
-    def update(self):
+    def update(self, account: Account):
+        self.db.add(account)
         self.db.commit()
-        self.db.refresh()
+        self.db.refresh(account)
         return account
 
     def delete(self, account: Account):

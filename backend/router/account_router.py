@@ -13,11 +13,8 @@ router = APIRouter(
 )
 
 # Injetar dependências dessa forma escala melhor
-def get_account_service(
-    db = Depends(get_db)
-) -> AccountService:
-    repository = AccountRepository(db)
-    return AccountService(repository)
+def get_account_service(db = Depends(get_db)) -> AccountService:
+    return AccountService(db)
 
 
 @router.post("/checking", 
