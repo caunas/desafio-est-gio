@@ -73,7 +73,7 @@ http://localhost:5173
 
 ---
 
-# 💡 Exemplo de utilização
+# Exemplo de utilização
 
 ## Criando uma conta
 
