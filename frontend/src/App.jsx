@@ -1,122 +1,240 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useEffect, useState } from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
+import {
+    Container,
+    Grid,
+    Snackbar,
+    Alert,
+    CircularProgress,
+    Typography
+} from "@mui/material";
 
-  return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+import Header from "./components/Header";
+import AccountForm from "./components/AccountForm";
+import OperationCard from "./components/OperationCard";
+import TransferCard from "./components/TransferCard";
+import AccountList from "./components/AccountList";
 
-      <div className="ticks"></div>
+import api from "./api/api";
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+import "./App.css";
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+export default function App() {
+
+    const [accounts, setAccounts] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    const [snackbar, setSnackbar] = useState({
+        open: false,
+        severity: "success",
+        message: ""
+    });
+
+    function showMessage(message, severity = "success") {
+        setSnackbar({
+            open: true,
+            severity,
+            message
+        });
+    }
+
+    async function loadAccounts() {
+
+        setLoading(true);
+
+        try {
+
+            const response = await api.get("/api/account/all");
+            setAccounts(response.data);
+
+        } catch {
+
+            showMessage("Erro ao carregar contas.", "error");
+
+        }
+
+        setLoading(false);
+    }
+
+    useEffect(() => {
+        loadAccounts();
+    }, []);
+
+    async function createAccount(data) {
+
+        try {
+
+            const endpoint =
+                data.type === "checking"
+                    ? "/api/account/checking"
+                    : "/api/account/saving";
+
+            await api.post(endpoint, {
+                holder_name: data.holder_name,
+                initial_balance: data.initial_balance
+            });
+
+            showMessage("Conta criada!");
+
+            loadAccounts();
+
+        } catch {
+
+            showMessage("Erro ao criar conta.", "error");
+
+        }
+    }
+
+    async function deposit({ accountId, amount }) {
+
+        try {
+
+            await api.post(
+                `/api/operations/deposit?account_id=${accountId}&amount=${amount}`
+            );
+
+            showMessage("Depósito realizado!");
+
+            loadAccounts();
+
+        } catch {
+
+            showMessage("Erro no depósito.", "error");
+
+        }
+    }
+
+    async function withdraw({ accountId, amount }) {
+
+        try {
+
+            await api.post(
+                `/api/operations/withdraw?account_id=${accountId}&amount=${amount}`
+            );
+
+            showMessage("Saque realizado!");
+
+            loadAccounts();
+
+        } catch {
+
+            showMessage("Erro no saque.", "error");
+
+        }
+    }
+
+    async function transfer({ fromId, toId, amount }) {
+
+        try {
+
+            await api.post(
+                `/api/operations/transfer?from_id=${fromId}&to_id=${toId}&amount=${amount}`
+            );
+
+            showMessage("Transferência realizada!");
+
+            loadAccounts();
+
+        } catch {
+
+            showMessage("Erro na transferência.", "error");
+
+        }
+    }
+
+    async function deleteAccount(id) {
+
+        try {
+
+            await api.delete(`/api/account/accounts/${id}`);
+
+            showMessage("Conta excluída!");
+
+            loadAccounts();
+
+        } catch {
+
+            showMessage("Erro ao excluir.", "error");
+
+        }
+    }
+
+    return (
+        <>
+            <Header />
+
+            <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+
+                <Grid container spacing={3}>
+
+                    <Grid item xs={12} md={4}>
+                        <AccountForm onCreate={createAccount} />
+                    </Grid>
+
+                    <Grid item xs={12} md={4}>
+                        <OperationCard
+                            title="Depositar"
+                            buttonText="Depositar"
+                            onSubmit={deposit}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={4}>
+                        <OperationCard
+                            title="Sacar"
+                            buttonText="Sacar"
+                            onSubmit={withdraw}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <TransferCard
+                            onTransfer={transfer}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Typography
+                            variant="h5"
+                            mb={2}
+                        >
+                            Contas
+                        </Typography>
+
+                        {
+                            loading
+                                ? <CircularProgress />
+                                : (
+                                    <AccountList
+                                        accounts={accounts}
+                                        onDelete={deleteAccount}
+                                    />
+                                )
+                        }
+
+                    </Grid>
+
+                </Grid>
+
+            </Container>
+
+            <Snackbar
+                open={snackbar.open}
+                autoHideDuration={2500}
+                onClose={() =>
+                    setSnackbar({
+                        ...snackbar,
+                        open: false
+                    })
+                }
+            >
+
+                <Alert severity={snackbar.severity}>
+                    {snackbar.message}
+                </Alert>
+
+            </Snackbar>
+
+        </>
+    );
 }
-
-export default App
