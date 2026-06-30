@@ -59,6 +59,6 @@ status_code = 200)
 def delete_account(
     db = Depends(get_db),
     service: AccountService = Depends(get_account_service),
-    id_victim = id
+    id: int
 ):
-    return service.delete_account(id_victim=id_victim)
+    return service.delete_account(id_victim=id)
