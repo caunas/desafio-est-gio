@@ -2,7 +2,7 @@
 
 ---
 
-## 📦 Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 ### Backend
 - Python 3.12
@@ -16,7 +16,7 @@
 
 ---
 
-## 📋 Pré-requisitos
+## Pré-requisitos
 
 Antes de executar o projeto, certifique-se de possuir instalado:
 
@@ -27,7 +27,7 @@ Antes de executar o projeto, certifique-se de possuir instalado:
 
 ---
 
-# 🚀 Executando o projeto
+# Executando o projeto
 
 ## 1. Backend (API)
 
@@ -101,10 +101,6 @@ O projeto cumpre seu objetivo funcional, porém ainda existem diversos pontos qu
 - Tratamento de exceções mais completo;
 - Testes automatizados;
 - Maior separação de responsabilidades entre camadas da aplicação.
-
----
-
-# 🐳 Melhorias futuras
 
 Uma arquitetura mais adequada para um ambiente de produção seria utilizar **Docker** para orquestrar toda a aplicação.
 
